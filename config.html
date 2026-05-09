@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,90 +17,126 @@
 
     <style>
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
         body{
             font-family:'Inter',sans-serif;
-            background:#020617;
-            color:white;
-        }
-
-        .font-display{
-            font-family:'Space Grotesk',sans-serif;
+            background:#2b2d31;
+            color:#f2f3f5;
         }
 
         .card{
-            background:#0f172a;
-            border:1px solid #1e293b;
-            transition:.25s;
+            background:#313338;
+            border:1px solid #3f4147;
+            transition:.2s ease;
         }
 
         .card:hover{
-            border-color:#22c55e;
-            transform:translateY(-4px);
-            box-shadow:0 20px 40px rgba(0,0,0,.45);
+            border-color:#5865f2;
+            transform:translateY(-3px);
+            box-shadow:0 12px 25px rgba(0,0,0,.25);
         }
 
         .toggle{
-            width:56px;
-            height:30px;
-            background:#334155;
+            width:58px;
+            height:31px;
+            background:#3f4147;
             border-radius:999px;
             position:relative;
             cursor:pointer;
-            transition:.25s;
+            transition:.2s ease;
         }
 
         .toggle::before{
             content:'';
             position:absolute;
-            width:24px;
-            height:24px;
-            background:white;
+            width:25px;
+            height:25px;
             border-radius:50%;
+            background:white;
             top:3px;
             left:3px;
-            transition:.25s;
+            transition:.2s ease;
         }
 
         .toggle.active{
-            background:#22c55e;
-            box-shadow:0 0 20px rgba(34,197,94,.4);
+            background:#5865f2;
+            box-shadow:0 0 18px rgba(88,101,242,.35);
         }
 
         .toggle.active::before{
-            transform:translateX(26px);
+            transform:translateX(27px);
         }
 
         input,
         select{
             width:100%;
-            background:#020617;
-            border:1px solid #334155;
-            color:white;
-            padding:12px;
-            border-radius:14px;
+            background:#232428;
+            border:1px solid #3f4147;
+            color:#f2f3f5;
+            padding:14px;
+            border-radius:16px;
             outline:none;
+            transition:.2s ease;
         }
 
         input:focus,
         select:focus{
-            border-color:#22c55e;
+            border-color:#5865f2;
+            box-shadow:0 0 0 4px rgba(88,101,242,.15);
         }
 
-        .green-btn{
-            background:linear-gradient(135deg,#22c55e,#16a34a);
-            transition:.25s;
+        .primary-btn{
+            background:#5865f2;
+            transition:.2s ease;
         }
 
-        .green-btn:hover{
+        .primary-btn:hover{
+            background:#4752c4;
             transform:translateY(-2px);
-            box-shadow:0 10px 25px rgba(34,197,94,.35);
+            box-shadow:0 12px 25px rgba(88,101,242,.25);
+        }
+
+        .secondary-btn{
+            background:#313338;
+            border:1px solid #3f4147;
+            transition:.2s ease;
+        }
+
+        .secondary-btn:hover{
+            border-color:#5865f2;
+        }
+
+        .muted{
+            color:#b5bac1;
+        }
+
+        .shield{
+            color:#5865f2;
         }
 
         pre{
             white-space:pre-wrap;
             word-wrap:break-word;
+        }
+
+        .hero-glow{
+            position:absolute;
+            width:450px;
+            height:450px;
+            background:rgba(88,101,242,.08);
+            filter:blur(100px);
+            border-radius:999px;
+            top:-120px;
+            left:50%;
+            transform:translateX(-50%);
+            z-index:0;
         }
 
     </style>
@@ -111,35 +146,21 @@
 <body>
 
 <!-- NAVBAR -->
-<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 border-b border-slate-800 backdrop-blur-xl">
+<nav class="fixed top-0 left-0 right-0 z-50 bg-[#232428]/90 backdrop-blur border-b border-[#3f4147]">
 
     <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
 
         <div class="flex items-center gap-4">
 
-            <div class="w-12 h-12">
+            <div class="w-12 h-12 bg-[#313338] border border-[#3f4147] rounded-2xl flex items-center justify-center">
 
-                <svg viewBox="0 0 120 120"
-                     class="w-full h-full">
-
-                    <path d="M60 6 L108 27 V73 C108 100 83 117 60 117 C37 117 12 100 12 73 V27 L60 6Z"
-                          fill="#22c55e"
-                          stroke="#166534"
-                          stroke-width="5"/>
-
-                    <path d="M35 61 L50 76 L85 42"
-                          stroke="white"
-                          stroke-width="11"
-                          stroke-linecap="round"
-                          fill="none"/>
-
-                </svg>
+                <i class="fas fa-shield-alt text-2xl shield"></i>
 
             </div>
 
             <div>
 
-                <h1 class="font-display text-3xl font-bold">
+                <h1 class="text-3xl font-bold tracking-tight">
                     Dc-Security
                 </h1>
 
@@ -148,7 +169,7 @@
         </div>
 
         <button onclick="generateConfig()"
-                class="green-btn px-6 py-3 rounded-2xl font-bold">
+                class="primary-btn px-6 py-3 rounded-xl font-semibold">
 
             <i class="fas fa-code mr-2"></i>
             Generate Config
@@ -160,16 +181,24 @@
 </nav>
 
 <!-- HERO -->
-<section class="pt-40 pb-20 px-6">
+<section class="relative overflow-hidden pt-40 pb-24 px-6">
 
-    <div class="max-w-5xl mx-auto text-center">
+    <div class="hero-glow"></div>
 
-        <h1 class="font-display text-6xl md:text-7xl font-bold mb-6">
+    <div class="relative z-10 max-w-5xl mx-auto text-center">
+
+        <div class="mx-auto w-24 h-24 bg-[#313338] border border-[#3f4147] rounded-3xl flex items-center justify-center mb-10">
+
+            <i class="fas fa-sliders text-5xl shield"></i>
+
+        </div>
+
+        <h1 class="text-6xl md:text-7xl font-bold tracking-tight mb-8">
             Config Generator
         </h1>
 
-        <p class="text-slate-400 text-xl max-w-3xl mx-auto">
-            Configure every Dc-Security module and export
+        <p class="muted text-xl max-w-3xl mx-auto leading-relaxed">
+            Configure every Dc-Security module and generate
             a complete JSON configuration for your server.
         </p>
 
@@ -181,7 +210,7 @@
 <div class="max-w-7xl mx-auto px-6 pb-32">
 
     <!-- CORE -->
-    <div class="mb-16">
+    <div class="mb-20">
 
         <h2 class="text-4xl font-bold mb-8">
             Core Systems
@@ -190,48 +219,33 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Anti Raid</h3>
+                <h3 class="text-2xl font-semibold mb-5">Anti Raid</h3>
                 <div class="toggle" data-key="anti_raid"></div>
             </div>
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Anti Nuke</h3>
+                <h3 class="text-2xl font-semibold mb-5">Anti Nuke</h3>
                 <div class="toggle" data-key="anti_nuke"></div>
             </div>
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Smart AutoMod</h3>
+                <h3 class="text-2xl font-semibold mb-5">Smart AutoMod</h3>
                 <div class="toggle" data-key="smart_automod"></div>
             </div>
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Scam Protection</h3>
+                <h3 class="text-2xl font-semibold mb-5">Scam Protection</h3>
                 <div class="toggle" data-key="scam_protection"></div>
             </div>
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Verification</h3>
+                <h3 class="text-2xl font-semibold mb-5">Verification</h3>
                 <div class="toggle" data-key="verification"></div>
             </div>
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Detailed Logs</h3>
+                <h3 class="text-2xl font-semibold mb-5">Detailed Logs</h3>
                 <div class="toggle" data-key="detailed_logs"></div>
-            </div>
-
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Backup Restore</h3>
-                <div class="toggle" data-key="backup_restore"></div>
-            </div>
-
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">AI Detection</h3>
-                <div class="toggle" data-key="ai_detection"></div>
-            </div>
-
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Cross Server Protection</h3>
-                <div class="toggle" data-key="cross_server_protection"></div>
             </div>
 
         </div>
@@ -239,7 +253,7 @@
     </div>
 
     <!-- RAID -->
-    <div class="mb-16">
+    <div class="mb-20">
 
         <h2 class="text-4xl font-bold mb-8">
             Raid Protection
@@ -248,12 +262,12 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Mass Join Detection</h3>
+                <h3 class="text-2xl font-semibold mb-5">Mass Join Detection</h3>
                 <div class="toggle" data-key="raid_mass_join"></div>
             </div>
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">New Account Detection</h3>
+                <h3 class="text-2xl font-semibold mb-5">New Account Detection</h3>
                 <div class="toggle" data-key="raid_new_accounts"></div>
             </div>
 
@@ -263,7 +277,7 @@
 
             <div class="card rounded-3xl p-8">
 
-                <label class="block mb-3 font-bold">
+                <label class="block mb-3 font-semibold">
                     Join Threshold
                 </label>
 
@@ -275,7 +289,7 @@
 
             <div class="card rounded-3xl p-8">
 
-                <label class="block mb-3 font-bold">
+                <label class="block mb-3 font-semibold">
                     Account Age Days
                 </label>
 
@@ -290,7 +304,7 @@
     </div>
 
     <!-- AUTOMOD -->
-    <div class="mb-16">
+    <div class="mb-20">
 
         <h2 class="text-4xl font-bold mb-8">
             AutoMod
@@ -299,17 +313,17 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Phishing Detection</h3>
+                <h3 class="text-2xl font-semibold mb-5">Phishing Detection</h3>
                 <div class="toggle" data-key="automod_phishing"></div>
             </div>
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Toxicity Detection</h3>
+                <h3 class="text-2xl font-semibold mb-5">Toxicity Detection</h3>
                 <div class="toggle" data-key="automod_toxicity"></div>
             </div>
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Spam Detection</h3>
+                <h3 class="text-2xl font-semibold mb-5">Spam Detection</h3>
                 <div class="toggle" data-key="automod_spam"></div>
             </div>
 
@@ -319,7 +333,7 @@
 
             <div class="card rounded-3xl p-8">
 
-                <label class="block mb-3 font-bold">
+                <label class="block mb-3 font-semibold">
                     Toxicity Threshold
                 </label>
 
@@ -331,7 +345,7 @@
 
             <div class="card rounded-3xl p-8">
 
-                <label class="block mb-3 font-bold">
+                <label class="block mb-3 font-semibold">
                     Spam Messages Limit
                 </label>
 
@@ -346,7 +360,7 @@
     </div>
 
     <!-- LOGGING -->
-    <div class="mb-16">
+    <div class="mb-20">
 
         <h2 class="text-4xl font-bold mb-8">
             Logging
@@ -355,12 +369,12 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Moderation Logs</h3>
+                <h3 class="text-2xl font-semibold mb-5">Moderation Logs</h3>
                 <div class="toggle" data-key="log_moderation"></div>
             </div>
 
             <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Join Logs</h3>
+                <h3 class="text-2xl font-semibold mb-5">Join Logs</h3>
                 <div class="toggle" data-key="log_joins"></div>
             </div>
 
@@ -370,7 +384,7 @@
 
             <div class="card rounded-3xl p-8">
 
-                <label class="block mb-3 font-bold">
+                <label class="block mb-3 font-semibold">
                     Logging Webhook
                 </label>
 
@@ -390,7 +404,7 @@
 <div id="popup"
      class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-6">
 
-    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-4xl w-full p-8">
+    <div class="bg-[#232428] border border-[#3f4147] rounded-3xl max-w-4xl w-full p-8">
 
         <div class="flex items-center justify-between mb-6">
 
@@ -399,7 +413,7 @@
             </h2>
 
             <button onclick="closePopup()"
-                    class="text-2xl">
+                    class="text-2xl text-slate-400 hover:text-white transition">
 
                 <i class="fas fa-times"></i>
 
@@ -408,19 +422,19 @@
         </div>
 
         <pre id="jsonOutput"
-             class="bg-slate-950 border border-slate-700 rounded-2xl p-6 max-h-[500px] overflow-auto"></pre>
+             class="bg-[#1e1f22] border border-[#3f4147] rounded-2xl p-6 max-h-[500px] overflow-auto text-sm"></pre>
 
         <div class="flex gap-4 mt-6">
 
             <button onclick="copyJSON()"
-                    class="green-btn flex-1 py-4 rounded-2xl font-bold">
+                    class="primary-btn flex-1 py-4 rounded-2xl font-semibold">
 
                 Copy JSON
 
             </button>
 
             <button onclick="downloadJSON()"
-                    class="bg-slate-800 border border-slate-700 flex-1 py-4 rounded-2xl font-bold">
+                    class="secondary-btn flex-1 py-4 rounded-2xl font-semibold">
 
                 Download JSON
 
@@ -432,183 +446,5 @@
 
 </div>
 
-<script>
-
-const config = {
-
-    anti_raid: false,
-    anti_nuke: false,
-    smart_automod: false,
-    scam_protection: false,
-    verification: false,
-    detailed_logs: false,
-    dashboard: false,
-    backup_restore: false,
-    appeals: false,
-    analytics: false,
-    premium_level: false,
-    ai_detection: false,
-    threat_intelligence: false,
-    risk_scoring: false,
-    cross_server_protection: false,
-    real_time_alerts: false,
-    behavioral_analysis: false,
-
-    raid_protection: false,
-    raid_mass_join: false,
-    raid_join_threshold: 5,
-    raid_new_accounts: false,
-    raid_account_age_days: 7,
-    raid_suspicious_ips: false,
-    raid_vpn_action: "warn",
-
-    verification_system: false,
-    verification_captcha: false,
-    verification_account_age: false,
-    verification_account_age_days: 14,
-    verification_phone: false,
-
-    automod_enabled: false,
-    automod_phishing: false,
-    automod_toxicity: false,
-    automod_toxicity_threshold: 75,
-    automod_spam: false,
-    automod_spam_messages: 5,
-
-    logging_enabled: false,
-    log_moderation: false,
-    log_joins: false,
-    log_webhook: false,
-    logging_webhook: ""
-
-};
-
-document.querySelectorAll(".toggle").forEach(toggle => {
-
-    const key = toggle.dataset.key;
-
-    toggle.addEventListener("click", () => {
-
-        toggle.classList.toggle("active");
-
-        config[key] =
-            toggle.classList.contains("active");
-
-    });
-
-});
-
-function generateConfig(){
-
-    config.raid_join_threshold =
-        parseInt(
-            document.getElementById(
-                "raid_join_threshold"
-            ).value
-        ) || 5;
-
-    config.raid_account_age_days =
-        parseInt(
-            document.getElementById(
-                "raid_account_age_days"
-            ).value
-        ) || 7;
-
-    config.automod_toxicity_threshold =
-        parseInt(
-            document.getElementById(
-                "automod_toxicity_threshold"
-            ).value
-        ) || 75;
-
-    config.automod_spam_messages =
-        parseInt(
-            document.getElementById(
-                "automod_spam_messages"
-            ).value
-        ) || 5;
-
-    config.logging_webhook =
-        document.getElementById(
-            "logging_webhook"
-        ).value;
-
-    const json =
-        JSON.stringify(
-            config,
-            null,
-            2
-        );
-
-    document.getElementById(
-        "jsonOutput"
-    ).textContent = json;
-
-    document.getElementById(
-        "popup"
-    ).classList.remove("hidden");
-
-    document.getElementById(
-        "popup"
-    ).classList.add("flex");
-
-}
-
-function closePopup(){
-
-    document.getElementById(
-        "popup"
-    ).classList.add("hidden");
-
-    document.getElementById(
-        "popup"
-    ).classList.remove("flex");
-
-}
-
-function copyJSON(){
-
-    navigator.clipboard.writeText(
-
-        document.getElementById(
-            "jsonOutput"
-        ).textContent
-
-    );
-
-}
-
-function downloadJSON(){
-
-    const blob = new Blob(
-
-        [
-            document.getElementById(
-                "jsonOutput"
-            ).textContent
-        ],
-
-        {
-            type:"application/json"
-        }
-
-    );
-
-    const a =
-        document.createElement("a");
-
-    a.href =
-        URL.createObjectURL(blob);
-
-    a.download =
-        "dc-security-config.json";
-
-    a.click();
-
-}
-
-</script>
-
 </body>
 </html>
-
