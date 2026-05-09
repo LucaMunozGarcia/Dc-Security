@@ -1,9 +1,11 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
+
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
@@ -16,7 +18,7 @@
 
     <style>
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap');
 
         body{
             font-family:'Inter',sans-serif;
@@ -31,18 +33,18 @@
         .card{
             background:#0f172a;
             border:1px solid #1e293b;
-            transition:all .25s ease;
+            transition:.25s;
         }
 
         .card:hover{
             border-color:#22c55e;
-            transform:translateY(-5px);
+            transform:translateY(-4px);
             box-shadow:0 20px 40px rgba(0,0,0,.45);
         }
 
         .toggle{
-            width:52px;
-            height:28px;
+            width:56px;
+            height:30px;
             background:#334155;
             border-radius:999px;
             position:relative;
@@ -50,47 +52,41 @@
             transition:.25s;
         }
 
-        .toggle.active{
-            background:#22c55e;
-            box-shadow:0 0 20px rgba(34,197,94,.45);
-        }
-
         .toggle::before{
             content:'';
-            width:22px;
-            height:22px;
+            position:absolute;
+            width:24px;
+            height:24px;
             background:white;
             border-radius:50%;
-            position:absolute;
             top:3px;
             left:3px;
             transition:.25s;
         }
 
+        .toggle.active{
+            background:#22c55e;
+            box-shadow:0 0 20px rgba(34,197,94,.4);
+        }
+
         .toggle.active::before{
-            transform:translateX(24px);
+            transform:translateX(26px);
         }
 
         input,
         select{
+            width:100%;
             background:#020617;
             border:1px solid #334155;
             color:white;
-            border-radius:14px;
-            width:100%;
             padding:12px;
+            border-radius:14px;
             outline:none;
         }
 
         input:focus,
         select:focus{
             border-color:#22c55e;
-        }
-
-        .section-title{
-            font-size:2rem;
-            font-weight:700;
-            margin-bottom:1rem;
         }
 
         .green-btn{
@@ -100,7 +96,7 @@
 
         .green-btn:hover{
             transform:translateY(-2px);
-            box-shadow:0 15px 30px rgba(34,197,94,.35);
+            box-shadow:0 10px 25px rgba(34,197,94,.35);
         }
 
         pre{
@@ -115,13 +111,13 @@
 <body>
 
 <!-- NAVBAR -->
-<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-xl border-b border-slate-800">
+<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 border-b border-slate-800 backdrop-blur-xl">
 
     <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
 
         <div class="flex items-center gap-4">
 
-            <div class="w-11 h-11">
+            <div class="w-12 h-12">
 
                 <svg viewBox="0 0 120 120"
                      class="w-full h-full">
@@ -143,9 +139,9 @@
 
             <div>
 
-                <div class="font-display text-3xl font-bold">
+                <h1 class="font-display text-3xl font-bold">
                     Dc-Security
-                </div>
+                </h1>
 
             </div>
 
@@ -164,107 +160,79 @@
 </nav>
 
 <!-- HERO -->
-<section class="pt-36 pb-20 px-6">
+<section class="pt-40 pb-20 px-6">
 
     <div class="max-w-5xl mx-auto text-center">
-
-        <div class="flex justify-center mb-10">
-
-            <div class="w-32 h-32">
-
-                <svg viewBox="0 0 120 120"
-                     class="w-full h-full">
-
-                    <path d="M60 6 L108 27 V73 C108 100 83 117 60 117 C37 117 12 100 12 73 V27 L60 6Z"
-                          fill="#22c55e"
-                          stroke="#166534"
-                          stroke-width="5"/>
-
-                    <path d="M35 61 L50 76 L85 42"
-                          stroke="white"
-                          stroke-width="11"
-                          stroke-linecap="round"
-                          fill="none"/>
-
-                </svg>
-
-            </div>
-
-        </div>
 
         <h1 class="font-display text-6xl md:text-7xl font-bold mb-6">
             Config Generator
         </h1>
 
-        <p class="text-slate-400 text-xl max-w-2xl mx-auto">
-
-            Configure every Dc-Security protection system manually
-            and export a complete JSON configuration.
-
+        <p class="text-slate-400 text-xl max-w-3xl mx-auto">
+            Configure every Dc-Security module and export
+            a complete JSON configuration for your server.
         </p>
 
     </div>
 
 </section>
 
-<!-- CONFIG -->
+<!-- CONTENT -->
 <div class="max-w-7xl mx-auto px-6 pb-32">
 
     <!-- CORE -->
     <div class="mb-16">
 
-        <h2 class="section-title">
+        <h2 class="text-4xl font-bold mb-8">
             Core Systems
         </h2>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <script>
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Anti Raid</h3>
+                <div class="toggle" data-key="anti_raid"></div>
+            </div>
 
-                const coreFeatures = [
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Anti Nuke</h3>
+                <div class="toggle" data-key="anti_nuke"></div>
+            </div>
 
-                    "anti_raid",
-                    "anti_nuke",
-                    "smart_automod",
-                    "scam_protection",
-                    "verification",
-                    "detailed_logs",
-                    "dashboard",
-                    "backup_restore",
-                    "appeals",
-                    "analytics",
-                    "premium_level",
-                    "ai_detection",
-                    "threat_intelligence",
-                    "risk_scoring",
-                    "cross_server_protection",
-                    "real_time_alerts",
-                    "behavioral_analysis"
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Smart AutoMod</h3>
+                <div class="toggle" data-key="smart_automod"></div>
+            </div>
 
-                ];
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Scam Protection</h3>
+                <div class="toggle" data-key="scam_protection"></div>
+            </div>
 
-                document.write(
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Verification</h3>
+                <div class="toggle" data-key="verification"></div>
+            </div>
 
-                    coreFeatures.map(feature => `
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Detailed Logs</h3>
+                <div class="toggle" data-key="detailed_logs"></div>
+            </div>
 
-                        <div class="card rounded-3xl p-8">
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Backup Restore</h3>
+                <div class="toggle" data-key="backup_restore"></div>
+            </div>
 
-                            <h3 class="text-2xl font-bold mb-5">
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">AI Detection</h3>
+                <div class="toggle" data-key="ai_detection"></div>
+            </div>
 
-                                ${feature.replaceAll("_"," ")}
-
-                            </h3>
-
-                            <div class="toggle"
-                                 data-key="${feature}"></div>
-
-                        </div>
-
-                    `).join("")
-
-                );
-
-            </script>
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Cross Server Protection</h3>
+                <div class="toggle" data-key="cross_server_protection"></div>
+            </div>
 
         </div>
 
@@ -273,54 +241,20 @@
     <!-- RAID -->
     <div class="mb-16">
 
-        <h2 class="section-title">
+        <h2 class="text-4xl font-bold mb-8">
             Raid Protection
         </h2>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <div class="card rounded-3xl p-8">
-
-                <h3 class="text-2xl font-bold mb-5">
-                    Raid Protection
-                </h3>
-
-                <div class="toggle"
-                     data-key="raid_protection"></div>
-
+                <h3 class="text-2xl font-bold mb-5">Mass Join Detection</h3>
+                <div class="toggle" data-key="raid_mass_join"></div>
             </div>
 
             <div class="card rounded-3xl p-8">
-
-                <h3 class="text-2xl font-bold mb-5">
-                    Mass Join Detection
-                </h3>
-
-                <div class="toggle"
-                     data-key="raid_mass_join"></div>
-
-            </div>
-
-            <div class="card rounded-3xl p-8">
-
-                <h3 class="text-2xl font-bold mb-5">
-                    New Accounts
-                </h3>
-
-                <div class="toggle"
-                     data-key="raid_new_accounts"></div>
-
-            </div>
-
-            <div class="card rounded-3xl p-8">
-
-                <h3 class="text-2xl font-bold mb-5">
-                    Suspicious IPs
-                </h3>
-
-                <div class="toggle"
-                     data-key="raid_suspicious_ips"></div>
-
+                <h3 class="text-2xl font-bold mb-5">New Account Detection</h3>
+                <div class="toggle" data-key="raid_new_accounts"></div>
             </div>
 
         </div>
@@ -358,53 +292,52 @@
     <!-- AUTOMOD -->
     <div class="mb-16">
 
-        <h2 class="section-title">
+        <h2 class="text-4xl font-bold mb-8">
             AutoMod
         </h2>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Phishing Detection</h3>
+                <div class="toggle" data-key="automod_phishing"></div>
+            </div>
 
-                <h3 class="text-2xl font-bold mb-5">
-                    AutoMod Enabled
-                </h3>
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Toxicity Detection</h3>
+                <div class="toggle" data-key="automod_toxicity"></div>
+            </div>
 
-                <div class="toggle"
-                     data-key="automod_enabled"></div>
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Spam Detection</h3>
+                <div class="toggle" data-key="automod_spam"></div>
+            </div>
+
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mt-6">
+
+            <div class="card rounded-3xl p-8">
+
+                <label class="block mb-3 font-bold">
+                    Toxicity Threshold
+                </label>
+
+                <input type="number"
+                       id="automod_toxicity_threshold"
+                       value="75">
 
             </div>
 
             <div class="card rounded-3xl p-8">
 
-                <h3 class="text-2xl font-bold mb-5">
-                    Phishing Detection
-                </h3>
+                <label class="block mb-3 font-bold">
+                    Spam Messages Limit
+                </label>
 
-                <div class="toggle"
-                     data-key="automod_phishing"></div>
-
-            </div>
-
-            <div class="card rounded-3xl p-8">
-
-                <h3 class="text-2xl font-bold mb-5">
-                    Toxicity Detection
-                </h3>
-
-                <div class="toggle"
-                     data-key="automod_toxicity"></div>
-
-            </div>
-
-            <div class="card rounded-3xl p-8">
-
-                <h3 class="text-2xl font-bold mb-5">
-                    Spam Detection
-                </h3>
-
-                <div class="toggle"
-                     data-key="automod_spam"></div>
+                <input type="number"
+                       id="automod_spam_messages"
+                       value="5">
 
             </div>
 
@@ -415,42 +348,35 @@
     <!-- LOGGING -->
     <div class="mb-16">
 
-        <h2 class="section-title">
+        <h2 class="text-4xl font-bold mb-8">
             Logging
         </h2>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <div class="card rounded-3xl p-8">
-
-                <h3 class="text-2xl font-bold mb-5">
-                    Logging Enabled
-                </h3>
-
-                <div class="toggle"
-                     data-key="logging_enabled"></div>
-
+                <h3 class="text-2xl font-bold mb-5">Moderation Logs</h3>
+                <div class="toggle" data-key="log_moderation"></div>
             </div>
 
             <div class="card rounded-3xl p-8">
-
-                <h3 class="text-2xl font-bold mb-5">
-                    Moderation Logs
-                </h3>
-
-                <div class="toggle"
-                     data-key="log_moderation"></div>
-
+                <h3 class="text-2xl font-bold mb-5">Join Logs</h3>
+                <div class="toggle" data-key="log_joins"></div>
             </div>
+
+        </div>
+
+        <div class="mt-6">
 
             <div class="card rounded-3xl p-8">
 
-                <h3 class="text-2xl font-bold mb-5">
-                    Join Logs
-                </h3>
+                <label class="block mb-3 font-bold">
+                    Logging Webhook
+                </label>
 
-                <div class="toggle"
-                     data-key="log_joins"></div>
+                <input type="text"
+                       id="logging_webhook"
+                       placeholder="https://discord.com/api/webhooks/...">
 
             </div>
 
@@ -460,5 +386,229 @@
 
 </div>
 
+<!-- POPUP -->
+<div id="popup"
+     class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-6">
+
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-4xl w-full p-8">
+
+        <div class="flex items-center justify-between mb-6">
+
+            <h2 class="text-4xl font-bold">
+                Generated JSON
+            </h2>
+
+            <button onclick="closePopup()"
+                    class="text-2xl">
+
+                <i class="fas fa-times"></i>
+
+            </button>
+
+        </div>
+
+        <pre id="jsonOutput"
+             class="bg-slate-950 border border-slate-700 rounded-2xl p-6 max-h-[500px] overflow-auto"></pre>
+
+        <div class="flex gap-4 mt-6">
+
+            <button onclick="copyJSON()"
+                    class="green-btn flex-1 py-4 rounded-2xl font-bold">
+
+                Copy JSON
+
+            </button>
+
+            <button onclick="downloadJSON()"
+                    class="bg-slate-800 border border-slate-700 flex-1 py-4 rounded-2xl font-bold">
+
+                Download JSON
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const config = {
+
+    anti_raid: false,
+    anti_nuke: false,
+    smart_automod: false,
+    scam_protection: false,
+    verification: false,
+    detailed_logs: false,
+    dashboard: false,
+    backup_restore: false,
+    appeals: false,
+    analytics: false,
+    premium_level: false,
+    ai_detection: false,
+    threat_intelligence: false,
+    risk_scoring: false,
+    cross_server_protection: false,
+    real_time_alerts: false,
+    behavioral_analysis: false,
+
+    raid_protection: false,
+    raid_mass_join: false,
+    raid_join_threshold: 5,
+    raid_new_accounts: false,
+    raid_account_age_days: 7,
+    raid_suspicious_ips: false,
+    raid_vpn_action: "warn",
+
+    verification_system: false,
+    verification_captcha: false,
+    verification_account_age: false,
+    verification_account_age_days: 14,
+    verification_phone: false,
+
+    automod_enabled: false,
+    automod_phishing: false,
+    automod_toxicity: false,
+    automod_toxicity_threshold: 75,
+    automod_spam: false,
+    automod_spam_messages: 5,
+
+    logging_enabled: false,
+    log_moderation: false,
+    log_joins: false,
+    log_webhook: false,
+    logging_webhook: ""
+
+};
+
+document.querySelectorAll(".toggle").forEach(toggle => {
+
+    const key = toggle.dataset.key;
+
+    toggle.addEventListener("click", () => {
+
+        toggle.classList.toggle("active");
+
+        config[key] =
+            toggle.classList.contains("active");
+
+    });
+
+});
+
+function generateConfig(){
+
+    config.raid_join_threshold =
+        parseInt(
+            document.getElementById(
+                "raid_join_threshold"
+            ).value
+        ) || 5;
+
+    config.raid_account_age_days =
+        parseInt(
+            document.getElementById(
+                "raid_account_age_days"
+            ).value
+        ) || 7;
+
+    config.automod_toxicity_threshold =
+        parseInt(
+            document.getElementById(
+                "automod_toxicity_threshold"
+            ).value
+        ) || 75;
+
+    config.automod_spam_messages =
+        parseInt(
+            document.getElementById(
+                "automod_spam_messages"
+            ).value
+        ) || 5;
+
+    config.logging_webhook =
+        document.getElementById(
+            "logging_webhook"
+        ).value;
+
+    const json =
+        JSON.stringify(
+            config,
+            null,
+            2
+        );
+
+    document.getElementById(
+        "jsonOutput"
+    ).textContent = json;
+
+    document.getElementById(
+        "popup"
+    ).classList.remove("hidden");
+
+    document.getElementById(
+        "popup"
+    ).classList.add("flex");
+
+}
+
+function closePopup(){
+
+    document.getElementById(
+        "popup"
+    ).classList.add("hidden");
+
+    document.getElementById(
+        "popup"
+    ).classList.remove("flex");
+
+}
+
+function copyJSON(){
+
+    navigator.clipboard.writeText(
+
+        document.getElementById(
+            "jsonOutput"
+        ).textContent
+
+    );
+
+}
+
+function downloadJSON(){
+
+    const blob = new Blob(
+
+        [
+            document.getElementById(
+                "jsonOutput"
+            ).textContent
+        ],
+
+        {
+            type:"application/json"
+        }
+
+    );
+
+    const a =
+        document.createElement("a");
+
+    a.href =
+        URL.createObjectURL(blob);
+
+    a.download =
+        "dc-security-config.json";
+
+    a.click();
+
+}
+
+</script>
+
 </body>
 </html>
+
