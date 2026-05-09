@@ -1,8 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Dc-Security • Config Generator</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,6 +15,7 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
+
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
 
         body{
@@ -102,18 +107,25 @@
             white-space:pre-wrap;
             word-wrap:break-word;
         }
+
     </style>
+
 </head>
 
 <body>
 
 <!-- NAVBAR -->
 <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-xl border-b border-slate-800">
+
     <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
 
         <div class="flex items-center gap-4">
+
             <div class="w-11 h-11">
-                <svg viewBox="0 0 120 120" class="w-full h-full">
+
+                <svg viewBox="0 0 120 120"
+                     class="w-full h-full">
+
                     <path d="M60 6 L108 27 V73 C108 100 83 117 60 117 C37 117 12 100 12 73 V27 L60 6Z"
                           fill="#22c55e"
                           stroke="#166534"
@@ -124,32 +136,45 @@
                           stroke-width="11"
                           stroke-linecap="round"
                           fill="none"/>
+
                 </svg>
+
             </div>
 
             <div>
+
                 <div class="font-display text-3xl font-bold">
                     Dc-Security
                 </div>
+
             </div>
+
         </div>
 
         <button onclick="generateConfig()"
                 class="green-btn px-6 py-3 rounded-2xl font-bold">
+
             <i class="fas fa-code mr-2"></i>
             Generate Config
+
         </button>
 
     </div>
+
 </nav>
 
 <!-- HERO -->
 <section class="pt-36 pb-20 px-6">
+
     <div class="max-w-5xl mx-auto text-center">
 
         <div class="flex justify-center mb-10">
+
             <div class="w-32 h-32">
-                <svg viewBox="0 0 120 120" class="w-full h-full">
+
+                <svg viewBox="0 0 120 120"
+                     class="w-full h-full">
+
                     <path d="M60 6 L108 27 V73 C108 100 83 117 60 117 C37 117 12 100 12 73 V27 L60 6Z"
                           fill="#22c55e"
                           stroke="#166534"
@@ -160,8 +185,11 @@
                           stroke-width="11"
                           stroke-linecap="round"
                           fill="none"/>
+
                 </svg>
+
             </div>
+
         </div>
 
         <h1 class="font-display text-6xl md:text-7xl font-bold mb-6">
@@ -169,121 +197,138 @@
         </h1>
 
         <p class="text-slate-400 text-xl max-w-2xl mx-auto">
+
             Configure every Dc-Security protection system manually
             and export a complete JSON configuration.
+
         </p>
 
     </div>
+
 </section>
 
 <!-- CONFIG -->
 <div class="max-w-7xl mx-auto px-6 pb-32">
 
-    <!-- MAIN SYSTEMS -->
+    <!-- CORE -->
     <div class="mb-16">
+
         <h2 class="section-title">
             Core Systems
         </h2>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Anti Raid</h3>
-                <div class="toggle" data-key="anti_raid"></div>
-            </div>
+            <script>
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Anti Nuke</h3>
-                <div class="toggle" data-key="anti_nuke"></div>
-            </div>
+                const coreFeatures = [
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Smart AutoMod</h3>
-                <div class="toggle" data-key="smart_automod"></div>
-            </div>
+                    "anti_raid",
+                    "anti_nuke",
+                    "smart_automod",
+                    "scam_protection",
+                    "verification",
+                    "detailed_logs",
+                    "dashboard",
+                    "backup_restore",
+                    "appeals",
+                    "analytics",
+                    "premium_level",
+                    "ai_detection",
+                    "threat_intelligence",
+                    "risk_scoring",
+                    "cross_server_protection",
+                    "real_time_alerts",
+                    "behavioral_analysis"
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Scam Protection</h3>
-                <div class="toggle" data-key="scam_protection"></div>
-            </div>
+                ];
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Verification</h3>
-                <div class="toggle" data-key="verification"></div>
-            </div>
+                document.write(
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Detailed Logs</h3>
-                <div class="toggle" data-key="detailed_logs"></div>
-            </div>
+                    coreFeatures.map(feature => `
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Dashboard</h3>
-                <div class="toggle" data-key="dashboard"></div>
-            </div>
+                        <div class="card rounded-3xl p-8">
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Backup Restore</h3>
-                <div class="toggle" data-key="backup_restore"></div>
-            </div>
+                            <h3 class="text-2xl font-bold mb-5">
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Appeals</h3>
-                <div class="toggle" data-key="appeals"></div>
-            </div>
+                                ${feature.replaceAll("_"," ")}
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Analytics</h3>
-                <div class="toggle" data-key="analytics"></div>
-            </div>
+                            </h3>
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Premium Level</h3>
-                <div class="toggle" data-key="premium_level"></div>
-            </div>
+                            <div class="toggle"
+                                 data-key="${feature}"></div>
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">AI Detection</h3>
-                <div class="toggle" data-key="ai_detection"></div>
-            </div>
+                        </div>
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Threat Intelligence</h3>
-                <div class="toggle" data-key="threat_intelligence"></div>
-            </div>
+                    `).join("")
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Risk Scoring</h3>
-                <div class="toggle" data-key="risk_scoring"></div>
-            </div>
+                );
 
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Cross Server Protection</h3>
-                <div class="toggle" data-key="cross_server_protection"></div>
-            </div>
-
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Real Time Alerts</h3>
-                <div class="toggle" data-key="real_time_alerts"></div>
-            </div>
-
-            <div class="card rounded-3xl p-8">
-                <h3 class="text-2xl font-bold mb-5">Behavioral Analysis</h3>
-                <div class="toggle" data-key="behavioral_analysis"></div>
-            </div>
+            </script>
 
         </div>
+
     </div>
 
     <!-- RAID -->
     <div class="mb-16">
+
         <h2 class="section-title">
-            Raid Protection Settings
+            Raid Protection
         </h2>
 
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <div class="card rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold mb-5">
+                    Raid Protection
+                </h3>
+
+                <div class="toggle"
+                     data-key="raid_protection"></div>
+
+            </div>
+
+            <div class="card rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold mb-5">
+                    Mass Join Detection
+                </h3>
+
+                <div class="toggle"
+                     data-key="raid_mass_join"></div>
+
+            </div>
+
+            <div class="card rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold mb-5">
+                    New Accounts
+                </h3>
+
+                <div class="toggle"
+                     data-key="raid_new_accounts"></div>
+
+            </div>
+
+            <div class="card rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold mb-5">
+                    Suspicious IPs
+                </h3>
+
+                <div class="toggle"
+                     data-key="raid_suspicious_ips"></div>
+
+            </div>
+
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 mt-6">
+
+            <div class="card rounded-3xl p-8">
+
                 <label class="block mb-3 font-bold">
                     Join Threshold
                 </label>
@@ -291,9 +336,11 @@
                 <input type="number"
                        id="raid_join_threshold"
                        value="5">
+
             </div>
 
             <div class="card rounded-3xl p-8">
+
                 <label class="block mb-3 font-bold">
                     Account Age Days
                 </label>
@@ -301,241 +348,117 @@
                 <input type="number"
                        id="raid_account_age_days"
                        value="7">
-            </div>
 
-            <div class="card rounded-3xl p-8">
-                <label class="block mb-3 font-bold">
-                    VPN Action
-                </label>
-
-                <select id="raid_vpn_action">
-                    <option>warn</option>
-                    <option>kick</option>
-                    <option>ban</option>
-                </select>
             </div>
 
         </div>
+
     </div>
 
     <!-- AUTOMOD -->
     <div class="mb-16">
+
         <h2 class="section-title">
-            AutoMod Settings
+            AutoMod
         </h2>
 
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             <div class="card rounded-3xl p-8">
-                <label class="block mb-3 font-bold">
-                    Toxicity Threshold
-                </label>
 
-                <input type="number"
-                       id="automod_toxicity_threshold"
-                       value="75">
+                <h3 class="text-2xl font-bold mb-5">
+                    AutoMod Enabled
+                </h3>
+
+                <div class="toggle"
+                     data-key="automod_enabled"></div>
+
             </div>
 
             <div class="card rounded-3xl p-8">
-                <label class="block mb-3 font-bold">
-                    Spam Messages Limit
-                </label>
 
-                <input type="number"
-                       id="automod_spam_messages"
-                       value="5">
+                <h3 class="text-2xl font-bold mb-5">
+                    Phishing Detection
+                </h3>
+
+                <div class="toggle"
+                     data-key="automod_phishing"></div>
+
+            </div>
+
+            <div class="card rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold mb-5">
+                    Toxicity Detection
+                </h3>
+
+                <div class="toggle"
+                     data-key="automod_toxicity"></div>
+
+            </div>
+
+            <div class="card rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold mb-5">
+                    Spam Detection
+                </h3>
+
+                <div class="toggle"
+                     data-key="automod_spam"></div>
+
             </div>
 
         </div>
+
     </div>
 
-    <!-- WEBHOOK -->
+    <!-- LOGGING -->
     <div class="mb-16">
+
         <h2 class="section-title">
-            Logging Webhook
+            Logging
         </h2>
 
-        <div class="card rounded-3xl p-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            <input type="text"
-                   id="logging_webhook"
-                   placeholder="https://discord.com/api/webhooks/...">
+            <div class="card rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold mb-5">
+                    Logging Enabled
+                </h3>
+
+                <div class="toggle"
+                     data-key="logging_enabled"></div>
+
+            </div>
+
+            <div class="card rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold mb-5">
+                    Moderation Logs
+                </h3>
+
+                <div class="toggle"
+                     data-key="log_moderation"></div>
+
+            </div>
+
+            <div class="card rounded-3xl p-8">
+
+                <h3 class="text-2xl font-bold mb-5">
+                    Join Logs
+                </h3>
+
+                <div class="toggle"
+                     data-key="log_joins"></div>
+
+            </div>
 
         </div>
+
     </div>
 
 </div>
-
-<!-- MODAL -->
-<div id="popup"
-     class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[9999] p-6">
-
-    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-4xl w-full p-8">
-
-        <div class="flex items-center justify-between mb-6">
-
-            <h2 class="text-4xl font-bold">
-                Generated JSON
-            </h2>
-
-            <button onclick="closePopup()"
-                    class="text-2xl">
-                <i class="fas fa-times"></i>
-            </button>
-
-        </div>
-
-        <pre id="jsonOutput"
-             class="bg-slate-950 border border-slate-700 rounded-2xl p-6 max-h-[500px] overflow-auto"></pre>
-
-        <div class="flex gap-4 mt-6">
-
-            <button onclick="copyJSON()"
-                    class="green-btn flex-1 py-4 rounded-2xl font-bold">
-                Copy JSON
-            </button>
-
-            <button onclick="downloadJSON()"
-                    class="bg-slate-800 flex-1 py-4 rounded-2xl font-bold border border-slate-700">
-                Download
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-<script>
-
-const config = {
-    anti_raid: false,
-    anti_nuke: false,
-    smart_automod: false,
-    scam_protection: false,
-    verification: false,
-    detailed_logs: false,
-    dashboard: false,
-    backup_restore: false,
-    appeals: false,
-    analytics: false,
-    premium_level: false,
-    ai_detection: false,
-    threat_intelligence: false,
-    risk_scoring: false,
-    cross_server_protection: false,
-    real_time_alerts: false,
-    behavioral_analysis: false,
-
-    raid_protection: false,
-    raid_mass_join: false,
-    raid_join_threshold: 5,
-    raid_new_accounts: false,
-    raid_account_age_days: 7,
-    raid_suspicious_ips: false,
-    raid_vpn_action: "warn",
-
-    verification_system: false,
-    verification_captcha: false,
-    verification_account_age: false,
-    verification_account_age_days: 14,
-    verification_phone: false,
-
-    automod_enabled: false,
-    automod_phishing: false,
-    automod_toxicity: false,
-    automod_toxicity_threshold: 75,
-    automod_spam: false,
-    automod_spam_messages: 5,
-
-    logging_enabled: false,
-    log_moderation: false,
-    log_joins: false,
-    log_webhook: false,
-    logging_webhook: ""
-};
-
-document.querySelectorAll(".toggle").forEach(toggle => {
-
-    const key = toggle.dataset.key;
-
-    toggle.addEventListener("click", () => {
-
-        toggle.classList.toggle("active");
-
-        config[key] = toggle.classList.contains("active");
-
-    });
-
-});
-
-function generateConfig(){
-
-    config.raid_join_threshold =
-        parseInt(document.getElementById("raid_join_threshold").value);
-
-    config.raid_account_age_days =
-        parseInt(document.getElementById("raid_account_age_days").value);
-
-    config.raid_vpn_action =
-        document.getElementById("raid_vpn_action").value;
-
-    config.automod_toxicity_threshold =
-        parseInt(document.getElementById("automod_toxicity_threshold").value);
-
-    config.automod_spam_messages =
-        parseInt(document.getElementById("automod_spam_messages").value);
-
-    config.logging_webhook =
-        document.getElementById("logging_webhook").value;
-
-    const json =
-        JSON.stringify(config, null, 2);
-
-    document.getElementById("jsonOutput").textContent =
-        json;
-
-    document.getElementById("popup").classList.remove("hidden");
-    document.getElementById("popup").classList.add("flex");
-}
-
-function closePopup(){
-
-    document.getElementById("popup").classList.add("hidden");
-    document.getElementById("popup").classList.remove("flex");
-
-}
-
-function copyJSON(){
-
-    navigator.clipboard.writeText(
-        document.getElementById("jsonOutput").textContent
-    );
-
-}
-
-function downloadJSON(){
-
-    const blob =
-        new Blob(
-            [document.getElementById("jsonOutput").textContent],
-            {type:"application/json"}
-        );
-
-    const a =
-        document.createElement("a");
-
-    a.href =
-        URL.createObjectURL(blob);
-
-    a.download =
-        "dc-security-config.json";
-
-    a.click();
-
-}
-
-</script>
 
 </body>
 </html>
