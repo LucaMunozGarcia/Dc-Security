@@ -1,356 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dc-Security • Config Generator</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+
+        body{
+            font-family:'Inter',sans-serif;
+            background:#020617;
+            color:white;
+        }
+
+        .font-display{
+            font-family:'Space Grotesk',sans-serif;
+        }
+
+        .card{
+            background:#0f172a;
+            border:1px solid #1e293b;
+            transition:all .25s ease;
+        }
+
+        .card:hover{
+            border-color:#22c55e;
+            transform:translateY(-5px);
+            box-shadow:0 20px 40px rgba(0,0,0,.45);
+        }
+
+        .toggle{
+            width:52px;
+            height:28px;
+            background:#334155;
+            border-radius:999px;
+            position:relative;
+            cursor:pointer;
+            transition:.25s;
+        }
+
+        .toggle.active{
+            background:#22c55e;
+            box-shadow:0 0 20px rgba(34,197,94,.45);
+        }
+
+        .toggle::before{
+            content:'';
+            width:22px;
+            height:22px;
+            background:white;
+            border-radius:50%;
+            position:absolute;
+            top:3px;
+            left:3px;
+            transition:.25s;
+        }
+
+        .toggle.active::before{
+            transform:translateX(24px);
+        }
+
+        input,
+        select{
+            background:#020617;
+            border:1px solid #334155;
+            color:white;
+            border-radius:14px;
+            width:100%;
+            padding:12px;
+            outline:none;
+        }
+
+        input:focus,
+        select:focus{
+            border-color:#22c55e;
+        }
+
+        .section-title{
+            font-size:2rem;
+            font-weight:700;
+            margin-bottom:1rem;
+        }
+
+        .green-btn{
+            background:linear-gradient(135deg,#22c55e,#16a34a);
+            transition:.25s;
+        }
+
+        .green-btn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 15px 30px rgba(34,197,94,.35);
+        }
+
+        pre{
+            white-space:pre-wrap;
+            word-wrap:break-word;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-xl border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+
+        <div class="flex items-center gap-4">
+            <div class="w-11 h-11">
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <path d="M60 6 L108 27 V73 C108 100 83 117 60 117 C37 117 12 100 12 73 V27 L60 6Z"
+                          fill="#22c55e"
+                          stroke="#166534"
+                          stroke-width="5"/>
+
+                    <path d="M35 61 L50 76 L85 42"
+                          stroke="white"
+                          stroke-width="11"
+                          stroke-linecap="round"
+                          fill="none"/>
+                </svg>
+            </div>
+
+            <div>
+                <div class="font-display text-3xl font-bold">
+                    Dc-Security
+                </div>
+            </div>
+        </div>
+
+        <button onclick="generateConfig()"
+                class="green-btn px-6 py-3 rounded-2xl font-bold">
+            <i class="fas fa-code mr-2"></i>
+            Generate Config
+        </button>
+
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="pt-36 pb-20 px-6">
+    <div class="max-w-5xl mx-auto text-center">
+
+        <div class="flex justify-center mb-10">
+            <div class="w-32 h-32">
+                <svg viewBox="0 0 120 120" class="w-full h-full">
+                    <path d="M60 6 L108 27 V73 C108 100 83 117 60 117 C37 117 12 100 12 73 V27 L60 6Z"
+                          fill="#22c55e"
+                          stroke="#166534"
+                          stroke-width="5"/>
+
+                    <path d="M35 61 L50 76 L85 42"
+                          stroke="white"
+                          stroke-width="11"
+                          stroke-linecap="round"
+                          fill="none"/>
+                </svg>
+            </div>
+        </div>
+
+        <h1 class="font-display text-6xl md:text-7xl font-bold mb-6">
+            Config Generator
+        </h1>
+
+        <p class="text-slate-400 text-xl max-w-2xl mx-auto">
+            Configure every Dc-Security protection system manually
+            and export a complete JSON configuration.
+        </p>
+
+    </div>
+</section>
+
+<!-- CONFIG -->
+<div class="max-w-7xl mx-auto px-6 pb-32">
+
+    <!-- MAIN SYSTEMS -->
+    <div class="mb-16">
+        <h2 class="section-title">
+            Core Systems
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Anti Raid</h3>
+                <div class="toggle" data-key="anti_raid"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Anti Nuke</h3>
+                <div class="toggle" data-key="anti_nuke"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Smart AutoMod</h3>
+                <div class="toggle" data-key="smart_automod"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Scam Protection</h3>
+                <div class="toggle" data-key="scam_protection"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Verification</h3>
+                <div class="toggle" data-key="verification"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Detailed Logs</h3>
+                <div class="toggle" data-key="detailed_logs"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Dashboard</h3>
+                <div class="toggle" data-key="dashboard"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Backup Restore</h3>
+                <div class="toggle" data-key="backup_restore"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Appeals</h3>
+                <div class="toggle" data-key="appeals"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Analytics</h3>
+                <div class="toggle" data-key="analytics"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Premium Level</h3>
+                <div class="toggle" data-key="premium_level"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">AI Detection</h3>
+                <div class="toggle" data-key="ai_detection"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Threat Intelligence</h3>
+                <div class="toggle" data-key="threat_intelligence"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Risk Scoring</h3>
+                <div class="toggle" data-key="risk_scoring"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Cross Server Protection</h3>
+                <div class="toggle" data-key="cross_server_protection"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Real Time Alerts</h3>
+                <div class="toggle" data-key="real_time_alerts"></div>
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <h3 class="text-2xl font-bold mb-5">Behavioral Analysis</h3>
+                <div class="toggle" data-key="behavioral_analysis"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- RAID -->
+    <div class="mb-16">
+        <h2 class="section-title">
+            Raid Protection Settings
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <div class="card rounded-3xl p-8">
+                <label class="block mb-3 font-bold">
+                    Join Threshold
+                </label>
+
+                <input type="number"
+                       id="raid_join_threshold"
+                       value="5">
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <label class="block mb-3 font-bold">
+                    Account Age Days
+                </label>
+
+                <input type="number"
+                       id="raid_account_age_days"
+                       value="7">
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <label class="block mb-3 font-bold">
+                    VPN Action
+                </label>
+
+                <select id="raid_vpn_action">
+                    <option>warn</option>
+                    <option>kick</option>
+                    <option>ban</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- AUTOMOD -->
+    <div class="mb-16">
+        <h2 class="section-title">
+            AutoMod Settings
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <div class="card rounded-3xl p-8">
+                <label class="block mb-3 font-bold">
+                    Toxicity Threshold
+                </label>
+
+                <input type="number"
+                       id="automod_toxicity_threshold"
+                       value="75">
+            </div>
+
+            <div class="card rounded-3xl p-8">
+                <label class="block mb-3 font-bold">
+                    Spam Messages Limit
+                </label>
+
+                <input type="number"
+                       id="automod_spam_messages"
+                       value="5">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- WEBHOOK -->
+    <div class="mb-16">
+        <h2 class="section-title">
+            Logging Webhook
+        </h2>
+
+        <div class="card rounded-3xl p-8">
+
+            <input type="text"
+                   id="logging_webhook"
+                   placeholder="https://discord.com/api/webhooks/...">
+
+        </div>
+    </div>
+
+</div>
+
+<!-- MODAL -->
+<div id="popup"
+     class="fixed inset-0 bg-black/80 hidden items-center justify-center z-[9999] p-6">
+
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-4xl w-full p-8">
+
+        <div class="flex items-center justify-between mb-6">
+
+            <h2 class="text-4xl font-bold">
+                Generated JSON
+            </h2>
+
+            <button onclick="closePopup()"
+                    class="text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+
+        </div>
+
+        <pre id="jsonOutput"
+             class="bg-slate-950 border border-slate-700 rounded-2xl p-6 max-h-[500px] overflow-auto"></pre>
+
+        <div class="flex gap-4 mt-6">
+
+            <button onclick="copyJSON()"
+                    class="green-btn flex-1 py-4 rounded-2xl font-bold">
+                Copy JSON
+            </button>
+
+            <button onclick="downloadJSON()"
+                    class="bg-slate-800 flex-1 py-4 rounded-2xl font-bold border border-slate-700">
+                Download
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
 <script>
-class DcSecurityConfig {
-
-    constructor() {
-
-        this.settings = {
-
-            // CORE
-            anti_raid: false,
-            anti_nuke: false,
-            smart_automod: false,
-            scam_protection: false,
-            verification: false,
-            detailed_logs: false,
-            dashboard: false,
-            backup_restore: false,
-            appeals: false,
-            analytics: false,
-            premium_level: false,
-            ai_detection: false,
-            threat_intelligence: false,
-            risk_scoring: false,
-            cross_server_protection: false,
-            real_time_alerts: false,
-            behavioral_analysis: false,
 
-            // RAID
-            raid_protection: false,
-            raid_mass_join: false,
-            raid_join_threshold: 5,
-            raid_new_accounts: false,
-            raid_account_age_days: 7,
-            raid_suspicious_ips: false,
-            raid_vpn_action: "warn",
-
-            // VERIFICATION
-            verification_system: false,
-            verification_captcha: false,
-            verification_account_age: false,
-            verification_account_age_days: 14,
-            verification_phone: false,
-
-            // AUTOMOD
-            automod_enabled: false,
-            automod_phishing: false,
-            automod_toxicity: false,
-            automod_toxicity_threshold: 75,
-            automod_spam: false,
-            automod_spam_messages: 5,
-
-            // LOGGING
-            logging_enabled: false,
-            log_moderation: false,
-            log_joins: false,
-            log_webhook: false,
-            logging_webhook: ""
-        };
-
-        this.init();
-    }
-
-    init() {
-
-        this.bindToggles();
-
-        this.bindInputs();
-
-        this.loadSettings();
-
-        this.updateInputs();
-    }
-
-    // ----------------------------------------
-    // TOGGLES
-    // ----------------------------------------
-    bindToggles() {
-
-        document.querySelectorAll("[data-toggle]").forEach(toggle => {
-
-            const key = toggle.dataset.toggle;
-
-            toggle.classList.remove("active");
-
-            toggle.addEventListener("click", () => {
-
-                toggle.classList.toggle("active");
-
-                this.settings[key] = toggle.classList.contains("active");
-
-                this.save();
-            });
-        });
-    }
-
-    // ----------------------------------------
-    // INPUTS
-    // ----------------------------------------
-    bindInputs() {
-
-        document.querySelectorAll("[data-input]").forEach(input => {
-
-            const key = input.dataset.input;
-
-            input.addEventListener("input", () => {
-
-                let value = input.value;
-
-                // NUMBER
-                if (input.type === "number") {
-
-                    value = Number(value);
-                }
-
-                this.settings[key] = value;
-
-                this.save();
-            });
-        });
-
-        document.querySelectorAll("[data-select]").forEach(select => {
-
-            const key = select.dataset.select;
-
-            select.addEventListener("change", () => {
-
-                this.settings[key] = select.value;
-
-                this.save();
-            });
-        });
-
-        // BUTTONS
-        document
-            .getElementById("generate-config")
-            .addEventListener("click", () => this.showPopup());
-
-        document
-            .getElementById("close-popup")
-            .addEventListener("click", () => this.hidePopup());
-
-        document
-            .getElementById("copy-config")
-            .addEventListener("click", () => this.copyConfig());
-
-        document
-            .getElementById("download-config")
-            .addEventListener("click", () => this.downloadConfig());
-    }
-
-    // ----------------------------------------
-    // UPDATE INPUTS
-    // ----------------------------------------
-    updateInputs() {
-
-        // TOGGLES
-        document.querySelectorAll("[data-toggle]").forEach(toggle => {
-
-            const key = toggle.dataset.toggle;
-
-            if (this.settings[key] === true) {
-
-                toggle.classList.add("active");
-
-            } else {
-
-                toggle.classList.remove("active");
-            }
-        });
-
-        // INPUTS
-        document.querySelectorAll("[data-input]").forEach(input => {
-
-            const key = input.dataset.input;
-
-            input.value = this.settings[key];
-        });
-
-        // SELECTS
-        document.querySelectorAll("[data-select]").forEach(select => {
-
-            const key = select.dataset.select;
-
-            select.value = this.settings[key];
-        });
-    }
-
-    // ----------------------------------------
-    // SAVE
-    // ----------------------------------------
-    save() {
-
-        localStorage.setItem(
-
-            "dc_security_config",
-
-            JSON.stringify(this.settings)
-        );
-    }
-
-    // ----------------------------------------
-    // LOAD
-    // ----------------------------------------
-    loadSettings() {
-
-        const saved = localStorage.getItem(
-            "dc_security_config"
-        );
-
-        if (!saved)
-            return;
-
-        try {
-
-            const parsed = JSON.parse(saved);
-
-            this.settings = {
-
-                ...this.settings,
-
-                ...parsed
-            };
-
-        } catch {}
-    }
-
-    // ----------------------------------------
-    // POPUP
-    // ----------------------------------------
-    showPopup() {
-
-        const json = JSON.stringify(
-
-            this.settings,
-
-            null,
-
-            2
-        );
-
-        document.getElementById(
-            "config-json"
-        ).textContent = json;
-
-        document
-            .getElementById("config-popup")
-            .classList.remove("hidden");
-
-        setTimeout(() => {
-
-            document
-                .getElementById("config-popup")
-                .classList.add("show");
-
-        }, 10);
-    }
-
-    hidePopup() {
-
-        document
-            .getElementById("config-popup")
-            .classList.remove("show");
-
-        setTimeout(() => {
-
-            document
-                .getElementById("config-popup")
-                .classList.add("hidden");
-
-        }, 300);
-    }
-
-    // ----------------------------------------
-    // COPY
-    // ----------------------------------------
-    copyConfig() {
-
-        const json = JSON.stringify(
-
-            this.settings,
-
-            null,
-
-            2
-        );
-
-        navigator.clipboard.writeText(json);
-
-        const btn = document.getElementById(
-            "copy-config"
-        );
-
-        const original = btn.innerHTML;
-
-        btn.innerHTML =
-            '<i class="fas fa-check"></i> Copied';
-
-        setTimeout(() => {
-
-            btn.innerHTML = original;
-
-        }, 1500);
-    }
-
-    // ----------------------------------------
-    // DOWNLOAD
-    // ----------------------------------------
-    downloadConfig() {
-
-        const json = JSON.stringify(
-
-            this.settings,
-
-            null,
-
-            2
-        );
-
-        const blob = new Blob(
-
-            [json],
-
-            {
-                type: "application/json"
-            }
-        );
-
-        const url = URL.createObjectURL(
-            blob
-        );
-
-        const a = document.createElement(
-            "a"
-        );
-
-        a.href = url;
-
-        a.download =
-            "dc-security-config.json";
-
-        a.click();
-
-        URL.revokeObjectURL(url);
-    }
+const config = {
+    anti_raid: false,
+    anti_nuke: false,
+    smart_automod: false,
+    scam_protection: false,
+    verification: false,
+    detailed_logs: false,
+    dashboard: false,
+    backup_restore: false,
+    appeals: false,
+    analytics: false,
+    premium_level: false,
+    ai_detection: false,
+    threat_intelligence: false,
+    risk_scoring: false,
+    cross_server_protection: false,
+    real_time_alerts: false,
+    behavioral_analysis: false,
+
+    raid_protection: false,
+    raid_mass_join: false,
+    raid_join_threshold: 5,
+    raid_new_accounts: false,
+    raid_account_age_days: 7,
+    raid_suspicious_ips: false,
+    raid_vpn_action: "warn",
+
+    verification_system: false,
+    verification_captcha: false,
+    verification_account_age: false,
+    verification_account_age_days: 14,
+    verification_phone: false,
+
+    automod_enabled: false,
+    automod_phishing: false,
+    automod_toxicity: false,
+    automod_toxicity_threshold: 75,
+    automod_spam: false,
+    automod_spam_messages: 5,
+
+    logging_enabled: false,
+    log_moderation: false,
+    log_joins: false,
+    log_webhook: false,
+    logging_webhook: ""
+};
+
+document.querySelectorAll(".toggle").forEach(toggle => {
+
+    const key = toggle.dataset.key;
+
+    toggle.addEventListener("click", () => {
+
+        toggle.classList.toggle("active");
+
+        config[key] = toggle.classList.contains("active");
+
+    });
+
+});
+
+function generateConfig(){
+
+    config.raid_join_threshold =
+        parseInt(document.getElementById("raid_join_threshold").value);
+
+    config.raid_account_age_days =
+        parseInt(document.getElementById("raid_account_age_days").value);
+
+    config.raid_vpn_action =
+        document.getElementById("raid_vpn_action").value;
+
+    config.automod_toxicity_threshold =
+        parseInt(document.getElementById("automod_toxicity_threshold").value);
+
+    config.automod_spam_messages =
+        parseInt(document.getElementById("automod_spam_messages").value);
+
+    config.logging_webhook =
+        document.getElementById("logging_webhook").value;
+
+    const json =
+        JSON.stringify(config, null, 2);
+
+    document.getElementById("jsonOutput").textContent =
+        json;
+
+    document.getElementById("popup").classList.remove("hidden");
+    document.getElementById("popup").classList.add("flex");
 }
 
-// INIT
-document.addEventListener(
+function closePopup(){
 
-    "DOMContentLoaded",
+    document.getElementById("popup").classList.add("hidden");
+    document.getElementById("popup").classList.remove("flex");
 
-    () => {
+}
 
-        new DcSecurityConfig();
-    }
-);
+function copyJSON(){
+
+    navigator.clipboard.writeText(
+        document.getElementById("jsonOutput").textContent
+    );
+
+}
+
+function downloadJSON(){
+
+    const blob =
+        new Blob(
+            [document.getElementById("jsonOutput").textContent],
+            {type:"application/json"}
+        );
+
+    const a =
+        document.createElement("a");
+
+    a.href =
+        URL.createObjectURL(blob);
+
+    a.download =
+        "dc-security-config.json";
+
+    a.click();
+
+}
+
 </script>
+
+</body>
+</html>
