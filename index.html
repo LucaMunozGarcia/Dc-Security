@@ -1,650 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dc-Security • Secure Your Discord Server</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dc-Security • Discord Security Bot</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
-        
-        :root {
-            --green: #22c55e;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Inter', system_ui, sans-serif;
-        }
-        
-        .font-display {
-            font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
-            font-weight: 600;
-            letter-spacing: -0.025em;
-        }
-
-        .green-glow {
-            box-shadow: 0 0 25px rgba(34, 197, 94, 0.35);
-        }
-
-        .feature-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
-            border-color: #22c55e;
-        }
-
-        .section-header {
-            background: linear-gradient(90deg, #fff, #e2e8f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-link {
-            position: relative;
-            transition: color 0.2s ease;
-        }
-        
-        .nav-link:hover {
-            color: #22c55e;
-        }
-        
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background: linear-gradient(to right, #22c55e, #4ade80);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover:after {
-            width: 100%;
-        }
-
-        .stat-number {
-            font-variant-numeric: tabular-nums;
-        }
-
-        .discord-btn {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 15px -3px rgb(34 197 94 / 0.3), 
-                       0 4px 6px -4px rgb(34 197 94 / 0.3);
-        }
-        
-        .discord-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 25px -5px rgb(34 197 94 / 0.4), 
-                       0 8px 10px -6px rgb(34 197 94 / 0.4);
+            font-family: 'Inter', sans-serif;
+            background: #2b2d31;
+            color: #f2f3f5;
         }
 
         .shield {
-            filter: drop-shadow(0 0 30px rgba(34, 197, 94, 0.5));
+            color: #5865f2;
+        }
+
+        .btn-discord {
+            background: #5865f2;
+            transition: all 0.2s ease;
+        }
+
+        .btn-discord:hover {
+            background: #4752c4;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(88, 101, 242, 0.25);
+        }
+
+        .feature-card {
+            background: #313338;
+            border: 1px solid #3f4147;
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #5865f2;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .section-bg {
+            background: #232428;
+        }
+
+        .text-muted {
+            color: #b5bac1;
+        }
+
+        .hero-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(88, 101, 242, 0.08);
+            filter: blur(100px);
+            border-radius: 999px;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 0;
         }
     </style>
 </head>
-<body class="bg-slate-950 text-white overflow-x-hidden">
+
+<body class="min-h-screen">
+
     <!-- Navbar -->
-    <nav class="fixed top-0 left-0 right-0 bg-slate-950/95 backdrop-blur-xl z-50 border-b border-slate-800">
-        <div class="max-w-screen-2xl mx-auto">
-            <div class="px-8 py-5 flex items-center justify-between">
-                <!-- Logo -->
-                <div class="flex items-center gap-x-4">
-                    <div class="w-11 h-11 flex-shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="w-full h-full">
-                            <defs>
-                                <linearGradient id="shieldGrad" x1="50%" y1="8%" x2="50%" y2="92%">
-                                    <stop offset="0%" stop-color="#22c55e"/>
-                                    <stop offset="100%" stop-color="#15803d"/>
-                                </linearGradient>
-                            </defs>
-                            <!-- Shield shape matching the provided image -->
-                            <path d="M60 6 L108 27 V73 C108 100 83 117 60 117 C37 117 12 100 12 73 V27 L60 6Z" 
-                                  fill="url(#shieldGrad)" stroke="#166534" stroke-width="5"/>
-                            <!-- White checkmark -->
-                            <path d="M35 61 L50 76 L85 42" 
-                                  stroke="#ffffff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <span class="font-display text-3xl font-semibold tracking-tighter">Dc-Security</span>
-                    </div>
-                </div>
+    <nav class="fixed top-0 w-full z-50 bg-[#232428]/90 backdrop-blur border-b border-[#3f4147]">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-x-9 text-sm font-medium">
-                    <a href="#features" class="nav-link text-slate-300 hover:text-white">Features</a>
-                    <a href="#how" class="nav-link text-slate-300 hover:text-white">How it Works</a>
-                    <a href="#testimonials" class="nav-link text-slate-300 hover:text-white">Testimonials</a>
-                </div>
-
-                <!-- Add Button -->
-                <div class="flex items-center gap-x-3">
-                    <a href="https://discord.com/oauth2/authorize?client_id=1502002154058154126&amp;permissions=8&amp;integration_type=0&amp;scope=bot" 
-                       target="_blank"
-                       class="hidden sm:flex items-center gap-x-2.5 px-5 py-2.5 text-sm font-semibold bg-white text-slate-950 rounded-2xl hover:bg-slate-100 transition-all active:scale-[0.985]">
-                        <i class="fab fa-discord text-lg"></i>
-                        <span class="font-bold">Add to Discord</span>
-                    </a>
-                    
-                    <!-- Mobile menu -->
-                    <div class="md:hidden">
-                        <a href="https://discord.com/oauth2/authorize?client_id=1502002154058154126&amp;permissions=8&amp;integration_type=0&amp;scope=bot" 
-                           target="_blank"
-                           class="px-4 py-2 bg-green-500 text-white text-sm font-bold rounded-xl flex items-center gap-x-2">
-                            <i class="fab fa-discord"></i>
-                        </a>
-                    </div>
-                </div>
+            <div class="flex items-center gap-3">
+                <i class="fas fa-shield-alt text-2xl shield"></i>
+                <span class="text-xl font-semibold tracking-tight">
+                    Dc-Security
+                </span>
             </div>
+
+            <a href="https://discord.com/oauth2/authorize?client_id=1502002154058154126&permissions=8&integration_type=0&scope=bot"
+               target="_blank"
+               class="btn-discord text-white px-6 py-3 rounded-xl font-semibold text-sm flex items-center gap-2">
+                <i class="fab fa-discord"></i>
+                Add to Discord
+            </a>
+
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="pt-20 pb-16 max-w-screen-2xl mx-auto px-6">
-        <div class="max-w-4xl mx-auto text-center pt-12 pb-8">
-            <!-- Big Shield -->
-            <div class="flex justify-center mb-10">
-                <div class="w-36 h-36 shield">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="w-full h-full">
-                        <defs>
-                            <linearGradient id="heroShield" x1="50%" y1="5%" x2="50%" y2="95%">
-                                <stop offset="0%" stop-color="#22c55e"/>
-                                <stop offset="100%" stop-color="#15803d"/>
-                            </linearGradient>
-                        </defs>
-                        <path d="M60 6 L108 27 V73 C108 100 83 117 60 117 C37 117 12 100 12 73 V27 L60 6Z" 
-                              fill="url(#heroShield)" stroke="#166534" stroke-width="6"/>
-                        <path d="M35 61 L50 76 L85 42" 
-                              stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
-                </div>
+    <!-- Hero -->
+    <section class="relative overflow-hidden pt-40 pb-32">
+
+        <div class="hero-glow"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+
+            <div class="mx-auto w-24 h-24 bg-[#313338] border border-[#3f4147] rounded-3xl flex items-center justify-center mb-10">
+                <i class="fas fa-shield-alt text-5xl shield"></i>
             </div>
 
-            <h1 class="font-display text-7xl md:text-8xl font-bold tracking-tighter leading-none mb-6">
-                Dc-Security
+            <h1 class="text-6xl md:text-7xl font-bold tracking-tight mb-8">
+                Advanced Discord<br />
+                Security
             </h1>
-            
-            <p class="max-w-2xl mx-auto text-2xl md:text-3xl text-slate-400 font-light tracking-tight mb-10">
-                Enterprise-grade protection for your Discord server.<br>
-                Stop raids, spam, and threats before they happen.
+
+            <p class="text-xl md:text-2xl text-muted max-w-3xl mx-auto leading-relaxed mb-12">
+                Powerful protection against raids, spam, scams and malicious activity.
+                Built for modern Discord communities.
             </p>
 
-            <!-- CTA Buttons -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="https://discord.com/oauth2/authorize?client_id=1502002154058154126&amp;permissions=8&amp;integration_type=0&amp;scope=bot" 
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
+
+                <a href="https://discord.com/oauth2/authorize?client_id=1502002154058154126&permissions=8&integration_type=0&scope=bot"
                    target="_blank"
-                   class="discord-btn group flex items-center justify-center gap-x-3 px-10 py-4 text-xl font-bold text-white rounded-3xl w-full sm:w-auto">
-                    <i class="fab fa-discord text-3xl group-active:rotate-12 transition-transform"></i>
-                    <span>Add to Discord — Free</span>
+                   class="btn-discord text-white px-10 py-5 rounded-xl font-semibold text-lg flex items-center gap-3">
+
+                    <i class="fab fa-discord text-xl"></i>
+                    Add Dc-Security
                 </a>
-                
-                <a href="#features" 
-                   class="flex items-center justify-center gap-x-3 px-8 py-4 border border-slate-700 hover:bg-slate-900 text-lg font-semibold rounded-3xl w-full sm:w-auto transition-colors">
-                    <span>Explore features</span>
-                    <i class="fas fa-arrow-down text-green-400"></i>
+
+                <a href="#features"
+                   class="bg-[#313338] border border-[#3f4147] hover:border-[#5865f2] transition px-10 py-5 rounded-xl font-semibold text-lg">
+                    View Features
                 </a>
+
             </div>
 
-            <div class="mt-8 flex items-center justify-center gap-x-3 text-sm">
-                <div class="flex -space-x-2">
-                    <div class="w-7 h-7 rounded-full bg-green-400 border-[2.5px] border-slate-950 ring-1 ring-green-500/30"></div>
-                    <div class="w-7 h-7 rounded-full bg-emerald-400 border-[2.5px] border-slate-950 ring-1 ring-green-500/30"></div>
-                    <div class="w-7 h-7 rounded-full bg-teal-400 border-[2.5px] border-slate-950 ring-1 ring-green-500/30"></div>
-                </div>
-                <span class="text-slate-400">Trusted by <span class="font-semibold text-white">14,872</span> servers worldwide</span>
+            <div class="mt-14 flex items-center justify-center gap-10 text-sm text-muted flex-wrap">
+                <span>24/7 Protection</span>
+                <span>Fast Setup</span>
+                <span>Real-Time Detection</span>
             </div>
+
         </div>
-    </div>
+    </section>
 
-    <!-- Stats Bar -->
-    <div class="border-y border-slate-800 bg-slate-900/50 py-8">
-        <div class="max-w-screen-2xl mx-auto px-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div>
-                    <div class="text-5xl font-bold text-green-400 stat-number">14.8k</div>
-                    <div class="text-sm text-slate-400 mt-1 tracking-wide">SERVERS PROTECTED</div>
-                </div>
-                <div>
-                    <div class="text-5xl font-bold text-green-400 stat-number">5.1m</div>
-                    <div class="text-sm text-slate-400 mt-1 tracking-wide">USERS SECURED</div>
-                </div>
-                <div>
-                    <div class="text-5xl font-bold text-green-400 stat-number">112k</div>
-                    <div class="text-sm text-slate-400 mt-1 tracking-wide">RAIDS BLOCKED</div>
-                </div>
-                <div>
-                    <div class="text-5xl font-bold text-green-400 stat-number">99.97%</div>
-                    <div class="text-sm text-slate-400 mt-1 tracking-wide">UPTIME THIS MONTH</div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Features -->
+    <section id="features" class="section-bg py-28">
 
-    <!-- Features Section -->
-    <div id="features" class="max-w-screen-2xl mx-auto px-6 py-24">
-        <div class="text-center mb-16">
-            <div class="inline-flex items-center px-4 py-1.5 rounded-3xl bg-green-500/10 text-green-400 text-sm font-semibold tracking-[1px] mb-4">
-                <i class="fas fa-shield-alt mr-2"></i>
-                BATTLE-TESTED FEATURES
-            </div>
-            <h2 class="font-display text-6xl font-bold tracking-tighter">Security that actually works</h2>
-            <p class="mt-4 text-xl text-slate-400 max-w-lg mx-auto">Advanced protection powered by real-time AI and battle-hardened algorithms.</p>
-        </div>
+        <div class="max-w-6xl mx-auto px-6">
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-            <!-- Feature Cards -->
-            <div class="feature-card bg-slate-900 border border-slate-700 hover:border-green-500/50 rounded-3xl p-9 group">
-                <div class="w-16 h-16 bg-green-500/10 group-hover:bg-green-500/20 transition-colors rounded-2xl flex items-center justify-center mb-8">
-                    <i class="fas fa-bomb text-4xl text-green-400"></i>
-                </div>
-                <h3 class="text-3xl font-semibold tracking-tight mb-4">Instant Raid Protection</h3>
-                <p class="text-slate-400 leading-relaxed">Detects and stops mass-join raids, suspicious account waves, and coordinated attacks in under 3 seconds.</p>
-                <div class="mt-6 text-xs uppercase tracking-widest text-green-400 font-medium">REAL-TIME • ZERO FALSE POSITIVES</div>
+            <div class="text-center mb-20">
+                <h2 class="text-5xl font-bold mb-6">
+                    Features
+                </h2>
+
+                <p class="text-xl text-muted max-w-2xl mx-auto">
+                    Everything you need to secure and manage your Discord server.
+                </p>
             </div>
 
-            <div class="feature-card bg-slate-900 border border-slate-700 hover:border-green-500/50 rounded-3xl p-9 group">
-                <div class="w-16 h-16 bg-green-500/10 group-hover:bg-green-500/20 transition-colors rounded-2xl flex items-center justify-center mb-8">
-                    <i class="fas fa-link-slash text-4xl text-green-400"></i>
-                </div>
-                <h3 class="text-3xl font-semibold tracking-tight mb-4">Phishing &amp; Scam Shield</h3>
-                <p class="text-slate-400 leading-relaxed">Blocks malicious links, fake Nitro scams, and impersonation attempts using our constantly updated threat database.</p>
-                <div class="mt-6 text-xs uppercase tracking-widest text-green-400 font-medium">UPDATED EVERY 60 SECONDS</div>
-            </div>
+            <div class="grid md:grid-cols-2 gap-8">
 
-            <div class="feature-card bg-slate-900 border border-slate-700 hover:border-green-500/50 rounded-3xl p-9 group">
-                <div class="w-16 h-16 bg-green-500/10 group-hover:bg-green-500/20 transition-colors rounded-2xl flex items-center justify-center mb-8">
-                    <i class="fas fa-user-shield text-4xl text-green-400"></i>
-                </div>
-                <h3 class="text-3xl font-semibold tracking-tight mb-4">Smart Verification</h3>
-                <p class="text-slate-400 leading-relaxed">Flexible captcha, account age gates, reaction verification, and anti-alt detection to keep bad actors out.</p>
-                <div class="mt-6 text-xs uppercase tracking-widest text-green-400 font-medium">FULLY CUSTOMIZABLE</div>
-            </div>
-
-            <div class="feature-card bg-slate-900 border border-slate-700 hover:border-green-500/50 rounded-3xl p-9 group">
-                <div class="w-16 h-16 bg-green-500/10 group-hover:bg-green-500/20 transition-colors rounded-2xl flex items-center justify-center mb-8">
-                    <i class="fas fa-history text-4xl text-green-400"></i>
-                </div>
-                <h3 class="text-3xl font-semibold tracking-tight mb-4">Complete Audit Trail</h3>
-                <p class="text-slate-400 leading-relaxed">Beautiful, exportable logs of every moderation action, join/leave, and configuration change with full context.</p>
-                <div class="mt-6 text-xs uppercase tracking-widest text-green-400 font-medium">SEARCHABLE • EXPORTABLE</div>
-            </div>
-
-            <div class="feature-card bg-slate-900 border border-slate-700 hover:border-green-500/50 rounded-3xl p-9 group">
-                <div class="w-16 h-16 bg-green-500/10 group-hover:bg-green-500/20 transition-colors rounded-2xl flex items-center justify-center mb-8">
-                    <i class="fas fa-brain text-4xl text-green-400"></i>
-                </div>
-                <h3 class="text-3xl font-semibold tracking-tight mb-4">AI-Powered AutoMod</h3>
-                <p class="text-slate-400 leading-relaxed">Our proprietary AI understands context and slang, removing toxicity while preserving healthy conversation.</p>
-                <div class="mt-6 text-xs uppercase tracking-widest text-green-400 font-medium">LEARNS FROM YOUR SERVER</div>
-            </div>
-
-            <div class="feature-card bg-slate-900 border border-slate-700 hover:border-green-500/50 rounded-3xl p-9 group">
-                <div class="w-16 h-16 bg-green-500/10 group-hover:bg-green-500/20 transition-colors rounded-2xl flex items-center justify-center mb-8">
-                    <i class="fas fa-satellite-dish text-4xl text-green-400"></i>
-                </div>
-                <h3 class="text-3xl font-semibold tracking-tight mb-4">Instant Threat Alerts</h3>
-                <p class="text-slate-400 leading-relaxed">Get notified the moment something suspicious happens via DM, webhook, or your favorite monitoring tool.</p>
-                <div class="mt-6 text-xs uppercase tracking-widest text-green-400 font-medium">WEBHOOK • DISCORD DM • EMAIL</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- How it Works -->
-    <div id="how" class="bg-slate-900 border-y border-slate-700 py-20">
-        <div class="max-w-screen-2xl mx-auto px-6">
-            <div class="max-w-2xl mx-auto text-center mb-16">
-                <div class="text-green-400 text-sm font-bold tracking-[2px] mb-3">3 EASY STEPS</div>
-                <h2 class="font-display text-6xl font-bold tracking-tighter">Secure your server<br>in under a minute</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <div class="text-center px-6">
-                    <div class="mx-auto mb-8 w-20 h-20 rounded-3xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-2xl shadow-green-500/40">
-                        <span class="text-white text-5xl font-black">1</span>
+                <div class="feature-card rounded-3xl p-8">
+                    <div class="mb-6">
+                        <i class="fas fa-shield-virus text-4xl shield"></i>
                     </div>
-                    <h4 class="font-semibold text-2xl mb-3 tracking-tight">Invite the bot</h4>
-                    <p class="text-slate-400">Click the big green button and grant the necessary permissions. Takes 5 seconds.</p>
+
+                    <h3 class="text-2xl font-semibold mb-4">
+                        Raid Protection
+                    </h3>
+
+                    <p class="text-muted leading-relaxed">
+                        Automatically detects and blocks mass joins,
+                        server nukes and coordinated attacks in real time.
+                    </p>
                 </div>
-                
-                <div class="text-center px-6">
-                    <div class="mx-auto mb-8 w-20 h-20 rounded-3xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-2xl shadow-green-500/40">
-                        <span class="text-white text-5xl font-black">2</span>
+
+                <div class="feature-card rounded-3xl p-8">
+                    <div class="mb-6">
+                        <i class="fas fa-link-slash text-4xl shield"></i>
                     </div>
-                    <h4 class="font-semibold text-2xl mb-3 tracking-tight">Set your rules</h4>
-                    <p class="text-slate-400">Use simple slash commands or our beautiful web dashboard to customize protection levels.</p>
+
+                    <h3 class="text-2xl font-semibold mb-4">
+                        Scam Detection
+                    </h3>
+
+                    <p class="text-muted leading-relaxed">
+                        Blocks phishing links, scam domains and dangerous messages
+                        before members interact with them.
+                    </p>
                 </div>
-                
-                <div class="text-center px-6">
-                    <div class="mx-auto mb-8 w-20 h-20 rounded-3xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-2xl shadow-green-500/40">
-                        <span class="text-white text-5xl font-black">3</span>
+
+                <div class="feature-card rounded-3xl p-8">
+                    <div class="mb-6">
+                        <i class="fas fa-user-check text-4xl shield"></i>
                     </div>
-                    <h4 class="font-semibold text-2xl mb-3 tracking-tight">Enjoy peace of mind</h4>
-                    <p class="text-slate-400">Dc-Security runs 24/7 with 99.97% uptime. You’ll never have to worry about raids again.</p>
+
+                    <h3 class="text-2xl font-semibold mb-4">
+                        Verification System
+                    </h3>
+
+                    <p class="text-muted leading-relaxed">
+                        Secure captcha and verification systems to stop
+                        automated bots and fake accounts.
+                    </p>
                 </div>
+
+                <div class="feature-card rounded-3xl p-8">
+                    <div class="mb-6">
+                        <i class="fas fa-chart-line text-4xl shield"></i>
+                    </div>
+
+                    <h3 class="text-2xl font-semibold mb-4">
+                        Moderation Logs
+                    </h3>
+
+                    <p class="text-muted leading-relaxed">
+                        Track moderation actions, security events and
+                        suspicious activity with detailed logging.
+                    </p>
+                </div>
+
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Testimonials -->
-    <div id="testimonials" class="max-w-screen-2xl mx-auto px-6 py-24">
-        <div class="text-center mb-14">
-            <h2 class="font-display text-6xl font-bold tracking-tighter">Real servers.<br>Real protection.</h2>
-            <p class="mt-3 text-xl text-slate-400">Don’t just take our word for it.</p>
-        </div>
+    <!-- Stats -->
+    <section class="py-28">
 
-        <div class="grid lg:grid-cols-3 gap-6">
-            <!-- Testimonial 1 -->
-            <div class="bg-slate-900 border border-slate-700 p-9 rounded-3xl flex flex-col">
-                <div class="flex text-yellow-400 mb-6">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-                <p class="text-lg leading-relaxed flex-1">"Dc-Security stopped a coordinated 300-account raid in literally 4 seconds. Our moderators didn't even have time to react. This thing is insane."</p>
-                <div class="flex items-center mt-8 pt-6 border-t border-slate-700">
-                    <div class="w-11 h-11 bg-gradient-to-br from-violet-400 to-fuchsia-400 rounded-2xl flex-shrink-0"></div>
-                    <div class="ml-4">
-                        <div class="font-semibold">Tyler Voss</div>
-                        <div class="text-sm text-slate-400">Owner • 87k member esports server</div>
-                    </div>
-                </div>
-            </div>
+        <div class="max-w-5xl mx-auto px-6">
 
-            <!-- Testimonial 2 -->
-            <div class="bg-slate-900 border border-slate-700 p-9 rounded-3xl flex flex-col">
-                <div class="flex text-yellow-400 mb-6">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                </div>
-                <p class="text-lg leading-relaxed flex-1">"The verification system completely eliminated our alt account problem. We went from 40+ fake accounts per week to zero. Best investment for our community."</p>
-                <div class="flex items-center mt-8 pt-6 border-t border-slate-700">
-                    <div class="w-11 h-11 bg-gradient-to-br from-rose-400 to-orange-400 rounded-2xl flex-shrink-0"></div>
-                    <div class="ml-4">
-                        <div class="font-semibold">Mia Laurent</div>
-                        <div class="text-sm text-slate-400">Admin • 52k member anime community</div>
-                    </div>
-                </div>
-            </div>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
 
-            <!-- Testimonial 3 -->
-            <div class="bg-slate-900 border border-slate-700 p-9 rounded-3xl flex flex-col">
-                <div class="flex text-yellow-400 mb-6">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <div class="feature-card rounded-3xl p-10">
+                    <h3 class="text-5xl font-bold shield mb-3">
+                        99.9%
+                    </h3>
+
+                    <p class="text-muted text-lg">
+                        Uptime
+                    </p>
                 </div>
-                <p class="text-lg leading-relaxed flex-1">"We've been using Dc-Security for 11 months. Zero successful attacks. The audit logs have also made moderation disputes 10x easier to resolve. 10/10 would recommend."</p>
-                <div class="flex items-center mt-8 pt-6 border-t border-slate-700">
-                    <div class="w-11 h-11 bg-gradient-to-br from-cyan-400 to-blue-400 rounded-2xl flex-shrink-0"></div>
-                    <div class="ml-4">
-                        <div class="font-semibold">Kai Nakamura</div>
-                        <div class="text-sm text-slate-400">Founder • 210k member tech hub</div>
-                    </div>
+
+                <div class="feature-card rounded-3xl p-10">
+                    <h3 class="text-5xl font-bold shield mb-3">
+                        24/7
+                    </h3>
+
+                    <p class="text-muted text-lg">
+                        Protection
+                    </p>
                 </div>
+
+                <div class="feature-card rounded-3xl p-10">
+                    <h3 class="text-5xl font-bold shield mb-3">
+                        Fast
+                    </h3>
+
+                    <p class="text-muted text-lg">
+                        Detection
+                    </p>
+                </div>
+
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Final CTA -->
-    <div class="bg-gradient-to-b from-slate-900 to-black border-t border-slate-700 py-20">
-        <div class="max-w-xl mx-auto text-center px-6">
-            <div class="inline-flex px-5 py-1.5 rounded-3xl bg-green-500/10 text-green-400 text-sm font-bold tracking-widest mb-6">NO CREDIT CARD REQUIRED</div>
-            
-            <h2 class="font-display text-6xl font-bold tracking-tighter mb-6">Ready to protect<br>your community?</h2>
-            
-            <p class="text-xl text-slate-400 mb-10">Join 14,872+ servers that sleep better at night.</p>
-            
-            <a href="https://discord.com/oauth2/authorize?client_id=1502002154058154126&amp;permissions=8&amp;integration_type=0&amp;scope=bot" 
+    <!-- CTA -->
+    <section class="section-bg py-28">
+
+        <div class="max-w-3xl mx-auto px-6 text-center">
+
+            <h2 class="text-5xl font-bold mb-8">
+                Secure your server today
+            </h2>
+
+            <p class="text-xl text-muted leading-relaxed mb-12">
+                Setup takes less than a minute.
+                No complicated configuration required.
+            </p>
+
+            <a href="https://discord.com/oauth2/authorize?client_id=1502002154058154126&permissions=8&integration_type=0&scope=bot"
                target="_blank"
-               class="group inline-flex items-center justify-center gap-x-4 px-14 py-5 text-2xl font-bold bg-green-500 hover:bg-emerald-600 active:bg-emerald-700 text-white rounded-3xl shadow-[0_0_40px_rgb(16,185,129,0.5)] transition-all hover:scale-[1.02]">
-                <i class="fab fa-discord text-[2.1rem] group-active:rotate-12 transition-transform"></i>
-                <span>Add Dc-Security Now</span>
+               class="btn-discord text-white px-12 py-5 rounded-xl font-semibold text-lg inline-flex items-center gap-3">
+
+                <i class="fab fa-discord text-xl"></i>
+                Add Dc-Security
             </a>
-            
-            <p class="mt-8 text-sm text-slate-500">Takes less than 30 seconds • Full control • Cancel anytime</p>
+
         </div>
-    </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-black pt-16 pb-10 border-t border-slate-800">
-        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-12 gap-y-14">
-            <div class="md:col-span-5">
-                <div class="flex items-center gap-x-4 mb-5">
-                    <div class="w-9 h-9">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-                            <path d="M60 6 L108 27 V73 C108 100 83 117 60 117 C37 117 12 100 12 73 V27 L60 6Z" fill="#22c55e"/>
-                            <path d="M35 61 L50 76 L85 42" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                        </svg>
-                    </div>
-                    <span class="font-display text-3xl font-semibold tracking-tighter">Dc-Security</span>
-                </div>
-                <p class="max-w-sm text-slate-400 pr-8">The most trusted security bot on Discord. Built for serious communities that value safety and transparency.</p>
-                
-                <div class="mt-8 flex gap-x-5 text-xl text-slate-400">
-                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-discord"></i></a>
-                    <a href="#" class="hover:text-white transition-colors"><i class="fab fa-github"></i></a>
-                </div>
+    <footer class="bg-[#1e1f22] border-t border-[#3f4147] py-12">
+
+        <div class="max-w-6xl mx-auto px-6 text-center">
+
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <i class="fas fa-shield-alt shield"></i>
+
+                <span class="font-semibold">
+                    Dc-Security
+                </span>
             </div>
-            
-            <div class="md:col-span-7 grid grid-cols-2 md:grid-cols-4 gap-y-10 text-sm">
-                <div>
-                    <div class="font-semibold text-white mb-4 tracking-wider text-xs">PRODUCT</div>
-                    <div class="space-y-[13px] text-slate-400">
-                        <div>Features</div>
-                        <div>Dashboard</div>
-                        <div>API</div>
-                        <div>Status</div>
-                    </div>
-                </div>
-                <div>
-                    <div class="font-semibold text-white mb-4 tracking-wider text-xs">COMPANY</div>
-                    <div class="space-y-[13px] text-slate-400">
-                        <div>About us</div>
-                        <div>Blog</div>
-                        <div>Careers</div>
-                        <div>Press</div>
-                    </div>
-                </div>
-                <div>
-                    <div class="font-semibold text-white mb-4 tracking-wider text-xs">RESOURCES</div>
-                    <div class="space-y-[13px] text-slate-400">
-                        <div>Documentation</div>
-                        <div>Help Center</div>
-                        <div>Community</div>
-                        <div>Changelog</div>
-                    </div>
-                </div>
-                <div>
-                    <div class="font-semibold text-white mb-4 tracking-wider text-xs">LEGAL</div>
-                    <div class="space-y-[13px] text-slate-400">
-                        <div>Privacy Policy</div>
-                        <div>Terms of Service</div>
-                        <div>Security</div>
-                        <div>License</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="mt-20 pt-8 border-t border-slate-800 text-center">
-            <p class="text-xs text-slate-500">© 2026 Dc-Security Inc. All rights reserved. This is a fictional demo website created for demonstration purposes.</p>
-            <p class="text-[10px] text-slate-600 mt-1">Not affiliated with Discord Inc. The bot client ID used is for illustrative purposes only.</p>
+
+            <p class="text-sm text-muted">
+                © 2026 Dc-Security. All rights reserved.
+            </p>
+
+            <p class="text-xs text-gray-500 mt-3">
+                Not affiliated with Discord Inc.
+            </p>
+
         </div>
     </footer>
 
-    <script>
-        // Tailwind configuration
-        function initTailwind() {
-            const style = document.createElement('style');
-            style.innerHTML = `
-                .feature-card {
-                    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                                box-shadow 0.4s ease, 
-                                border-color 0.3s ease;
-                }
-            `;
-            document.head.appendChild(style);
-        }
-
-        // Smooth scroll
-        function initSmoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    
-                    if (targetElement) {
-                        e.preventDefault();
-                        const navHeight = 80;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.scrollY - navHeight;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        }
-
-        // Confetti effect on CTA clicks
-        function triggerConfetti() {
-            const colors = ['#22c55e', '#4ade80', '#16a34a', '#86efac'];
-            
-            for (let i = 0; i < 65; i++) {
-                setTimeout(() => {
-                    const particle = document.createElement('div');
-                    particle.className = `fixed w-2.5 h-2.5 rounded-full pointer-events-none z-[9999]`;
-                    particle.style.left = `${Math.random() * 100}vw`;
-                    particle.style.top = `-20px`;
-                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    particle.style.opacity = Math.random() * 0.8 + 0.6;
-                    
-                    document.body.appendChild(particle);
-                    
-                    const fallDuration = Math.random() * 2800 + 2400;
-                    const xDrift = (Math.random() - 0.5) * 180;
-                    
-                    particle.animate([
-                        { 
-                            transform: `translateY(0) translateX(0) rotate(0deg)`,
-                            opacity: particle.style.opacity 
-                        },
-                        { 
-                            transform: `translateY(${window.innerHeight + 120}px) translateX(${xDrift}px) rotate(${Math.random() * 820 - 180}deg)`,
-                            opacity: 0 
-                        }
-                    ], {
-                        duration: fallDuration,
-                        easing: 'cubic-bezier(0.22, 1, 0.36, 1)'
-                    }).onfinish = () => particle.remove();
-                }, i * 1.8);
-            }
-        }
-
-        // Add confetti to all invite buttons
-        function initCTAButtons() {
-            const inviteLinks = document.querySelectorAll('a[href*="discord.com/oauth2"]');
-            
-            inviteLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    // Small delay so the new tab opens first
-                    setTimeout(() => {
-                        triggerConfetti();
-                    }, 420);
-                });
-            });
-        }
-
-        // Animated counter for stats
-        function animateStats() {
-            const stats = document.querySelectorAll('.stat-number');
-            
-            stats.forEach(stat => {
-                const target = parseFloat(stat.textContent.replace(/[^0-9.]/g, ''));
-                const suffix = stat.textContent.replace(/[0-9.]/g, '');
-                let current = 0;
-                const increment = target / 42;
-                const duration = 1600;
-                const startTime = Date.now();
-                
-                const timer = setInterval(() => {
-                    const elapsed = Date.now() - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    
-                    current = target * (1 - Math.pow(1 - progress, 3)); // ease out cubic
-                    
-                    if (target % 1 === 0) {
-                        stat.textContent = Math.floor(current) + suffix;
-                    } else {
-                        stat.textContent = current.toFixed(2) + suffix;
-                    }
-                    
-                    if (progress >= 1) {
-                        clearInterval(timer);
-                        stat.textContent = target + suffix;
-                    }
-                }, 32);
-            });
-        }
-
-        // Keyboard shortcut hint
-        function initKeyboardHint() {
-            document.addEventListener('keydown', function(e) {
-                if (e.key === '?' && document.activeElement.tagName === 'BODY') {
-                    const features = document.getElementById('features');
-                    if (features) {
-                        features.scrollIntoView({ behavior: 'smooth' });
-                    }
-                    e.preventDefault();
-                }
-            });
-            
-            // Easter egg: type "secure" to trigger confetti
-            let typed = '';
-            document.addEventListener('keypress', function(e) {
-                typed += e.key.toLowerCase();
-                if (typed.length > 6) typed = typed.slice(-6);
-                
-                if (typed === 'secure') {
-                    triggerConfetti();
-                    typed = '';
-                }
-            });
-        }
-
-        // Initialize everything
-        function initialize() {
-            initTailwind();
-            initSmoothScroll();
-            initCTAButtons();
-            initKeyboardHint();
-            
-            // Animate stats when they come into view
-            const statsSection = document.querySelector('.border-y.border-slate-800');
-            if (statsSection) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            animateStats();
-                            observer.disconnect();
-                        }
-                    });
-                }, { threshold: 0.6 });
-                
-                observer.observe(statsSection);
-            }
-            
-            // Console message
-            console.log('%c[Dc-Security] Beautiful landing page ready. All systems green ✅', 'color:#22c55e; font-size:9px');
-        }
-
-        // Boot the page
-        window.onload = initialize;
-    </script>
 </body>
 </html>
